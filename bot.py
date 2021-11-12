@@ -7,14 +7,15 @@ intents.members = True
 
 client = discord.Client(intents=intents)
 
-def start(token):
-    loop = asyncio.get_event_loop()
-    t = threading.Thread(target=loop.run_until_complete, args=[client.start(token)])
-    t.start()
 
 @client.event
 async def on_ready():
    print('Successful connection. Token is valid!\nWe have logged in as: {0.user}\n'.format(client))
+
+def start(token):
+    loop = asyncio.get_event_loop()
+    t = threading.Thread(target=loop.run_until_complete, args=[client.start(token)])
+    t.start()
 
 async def get_guilds():
     print('''\n============ GUILDS ============
