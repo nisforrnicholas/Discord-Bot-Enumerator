@@ -8,7 +8,7 @@ In general, users can manually extract data from Discord guilds and channels if 
 
 * Guilds that the bot is in
 * Channels within a specific guild
-* Guild members
+* Guild members **(NOT WORKING FOR NOW)**
 * Messages sent in channels
 
 
@@ -67,6 +67,10 @@ python3 dbe.py members GUILD_ID BOT_TOKEN
 To enumerate message history of a channel:
 
 ``````
+# prints out latest 200 (default) messages in channel
 python3 dbe.py messages GUILD_ID CHANNEL_ID BOT_TOKEN
+
+# specify number of messages to print (eg: 50 messages)
+python3 dbe.py messages -l 50 GUILD_ID CHANNEL_ID BOT_TOKEN
 ``````
 

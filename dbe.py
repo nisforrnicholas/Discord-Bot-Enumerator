@@ -40,7 +40,7 @@ if __name__=='__main__':
     parser_messages.add_argument('guild_id', type=int, help='Valid Guild ID')
     parser_messages.add_argument('channel_id', type=int, help='Valid Channel ID')
     parser_messages.add_argument('token', help='Valid Bot Token')
-    parser_messages.add_argument('-l', '--limit', type=int, help='Specify message history limit (Default: 100)')
+    parser_messages.add_argument('-l', '--limit', type=int, help='Specify message history limit (Default: 200)')
 
     # parse arguments
     args = parser.parse_args()
