@@ -27,7 +27,7 @@ In order to enumerate data using a bot token, the bot itself needs to fulfill ce
 | Enumerate Message History |      VIEW_CHANNELS<br />READ_MESSAGE_HISTORY       |
 |    Create Invite Link     |                CREATE_INSTANT_LINK                 |
 
-* The best possible case is for the bot to have '**ADMINISTRATOR**' permissions. This will allow is to execute all of the commands.
+* The best possible case is for the bot to have '**ADMINISTRATOR**' permissions. This will allow it to execute all of the commands.
 
 # Installation
 
