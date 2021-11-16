@@ -30,12 +30,18 @@ async def get_guilds():
 
 async def get_channels(guild_id):
     guild = client.get_guild(guild_id)
-    channels = '\n'.join([Fore.GREEN + channel.name + Style.RESET_ALL + " : " + str(channel.id) + " : " + str(channel.type) for channel in guild.channels])
-    print('''\n========= GUILD CHANNELS =========
+    if guild.me.guild_permissions.administrator or guild.me.guild_permissions.view_channel:
+        channels = '\n'.join([Fore.GREEN + channel.name + Style.RESET_ALL + " : " + str(channel.id) + " : " + str(channel.type) for channel in guild.channels])
+        print('''\n========= GUILD CHANNELS =========
 (Name : Channel id : Channel type)
-    ''')
-    print(f"[ Channels in: {guild.name} ]")
-    print(channels + "\n")
+        ''')
+        print(f"[ Channels in: {guild.name} ]")
+        print(channels + "\n")
+    else:
+        print(f'''\n========= GUILD CHANNELS =========
+        
+[ Bot does not have 'View Channels' permissions on {guild.name} ]
+        ''')
     await shutdown()
 
 async def get_members(guild_id):
@@ -49,26 +55,40 @@ async def get_members(guild_id):
     await shutdown()
 
 async def get_messages(guild_id, channel_id, limit=200):
-    channel = client.get_guild(guild_id).get_channel(channel_id)
-    message_hist = await channel.history(limit=limit).flatten()
-    print(f'''\n=========== MESSAGES ===========
+    guild = client.get_guild(guild_id)
+    if (guild.me.guild_permissions.administrator or guild.me.guild_permissions.read_message_history) and guild.me.guild_permissions.view_channel:
+        channel = guild.get_channel(channel_id)
+        message_hist = await channel.history(limit=limit).flatten()
+        print(f'''\n=========== MESSAGES ==========
 Latest message is at the top. Timestamps are in UTC.
 
 [ Message history from channel: {channel.name} ]
-    ''')
-    for i in message_hist:
-        msg = await channel.fetch_message(i.id)
-        print(Fore.CYAN + str(msg.created_at) + Style.RESET_ALL + "  " + Fore.GREEN + i.author.name + Style.RESET_ALL + " : " + msg.content)
-    print("\n")
+        ''')
+        for i in message_hist:
+            msg = await channel.fetch_message(i.id)
+            print(Fore.CYAN + str(msg.created_at) + Style.RESET_ALL + "  " + Fore.GREEN + i.author.name + Style.RESET_ALL + " : " + msg.content)
+        print("\n")
+    else:
+        print(f'''\n=========== MESSAGES ===========
+
+[ Bot does not have 'Read Message History' permissions on {guild.name} ]
+        ''')
     await shutdown()
 
 async def create_invites(guild_id, channel_id):
-    channel = client.get_guild(guild_id).get_channel(channel_id)
-    discord_server_invite = await channel.create_invite()
-    print(f'''\n=========== Invites ===========
+    guild = client.get_guild(guild_id)
+    if guild.me.guild_permissions.administrator or guild.me.guild_permissions.create_instant_invite:
+        channel = guild.get_channel(channel_id)
+        discord_server_invite = await channel.create_invite()
+        print(f'''\n=========== Invites ===========
 [ Creating invite for channel: {channel.name} ]
-    ''')
-    print("Invite Link: " + Fore.GREEN + str(discord_server_invite) + Style.RESET_ALL)
+        ''')
+        print("Invite Link: " + Fore.GREEN + str(discord_server_invite) + Style.RESET_ALL)
+    else:
+        print(f'''\n=========== Invites ===========
+
+[ Bot does not have 'Create Instant Invite' permissions on {guild.name} ]
+        ''')
     await shutdown()
 
 async def shutdown():
