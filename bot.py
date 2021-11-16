@@ -1,6 +1,7 @@
 import discord
 import threading
 import asyncio
+from discord.ext import commands
 from colorama import init, Fore, Style
 
 init()
@@ -9,7 +10,6 @@ intents = discord.Intents.default()
 intents.members = False
 
 client = discord.Client(intents=intents)
-
 
 def start(token):
     loop = asyncio.get_event_loop()
@@ -60,6 +60,15 @@ Latest message is at the top. Timestamps are in UTC.
         msg = await channel.fetch_message(i.id)
         print(Fore.CYAN + str(msg.created_at) + Style.RESET_ALL + "  " + Fore.GREEN + i.author.name + Style.RESET_ALL + " : " + msg.content)
     print("\n")
+    await shutdown()
+
+async def create_invites(guild_id, channel_id):
+    channel = client.get_guild(guild_id).get_channel(channel_id)
+    discord_server_invite = await channel.create_invite()
+    print(f'''\n=========== Invites ===========
+[ Creating invite for channel: {channel.name} ]
+    ''')
+    print("Invite Link: " + Fore.GREEN + str(discord_server_invite) + Style.RESET_ALL)
     await shutdown()
 
 async def shutdown():

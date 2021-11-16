@@ -15,7 +15,7 @@ def get_banner():
 
 if __name__=='__main__':
      # create the top-level parser
-    parser = argparse.ArgumentParser(description='Discord Bot Enumerator',  epilog='Example Usages:\ndbe.py guilds <BOT TOKEN>\ndbe.py channels <GUILD ID> <BOT TOKEN>\ndbe.py members <GUILD ID> <BOT TOKEN>\ndbe.py messages <GUILD ID> <CHANNEL ID> <BOT TOKEN>\n ', formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser = argparse.ArgumentParser(description='Discord Bot Enumerator',  epilog='Example Usages:\ndbe.py guilds <BOT TOKEN>\ndbe.py channels <GUILD ID> <BOT TOKEN>\ndbe.py members <GUILD ID> <BOT TOKEN>\ndbe.py messages <GUILD ID> <CHANNEL ID> <BOT TOKEN>\ndbe.py invites <GUILD ID> <CHANNEL ID> <BOT TOKEN>\n ', formatter_class=argparse.RawDescriptionHelpFormatter)
     parser._positionals.title = 'Commands'
 
     # create subparsers
@@ -42,6 +42,12 @@ if __name__=='__main__':
     parser_messages.add_argument('token', help='Valid Bot Token')
     parser_messages.add_argument('-l', '--limit', type=int, help='Specify message history limit (Default: 200)')
 
+    # create the parser for the "invites" command
+    parser_invites = subparsers.add_parser('invites', help='Create an invite link to a specific channel. Use "invites -h" for help')
+    parser_invites.add_argument('guild_id', type=int, help='Specify valid guild ID')
+    parser_invites.add_argument('channel_id', type=int, help='Valid Channel ID')
+    parser_invites.add_argument('token', help='Valid Bot Token')
+
     # parse arguments
     args = parser.parse_args()
     
@@ -66,6 +72,8 @@ if __name__=='__main__':
             asyncio.run_coroutine_threadsafe(bot.get_messages(args.guild_id, args.channel_id, args.limit), loop)
         else:
             asyncio.run_coroutine_threadsafe(bot.get_messages(args.guild_id, args.channel_id), loop)
-
+    
+    if args.command == 'invites':
+        asyncio.run_coroutine_threadsafe(bot.create_invites(args.guild_id, args.channel_id), loop)
 
     

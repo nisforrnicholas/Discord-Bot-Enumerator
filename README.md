@@ -4,12 +4,13 @@ Discord Bot Enumerator is a simple Python tool that allows users with a valid Di
 
 In general, users can manually extract data from Discord guilds and channels if they manage to obtain an active bot token. This tool is just a wrapper around the discord.py library, which aims to automate the extraction process. 
 
-**With a valid bot token, users can enumerate:**
+**With a valid bot token, users can:**
 
-* Guilds that the bot is in
-* Channels within a specific guild
-* Guild members **(NOT WORKING FOR NOW)**
-* Messages sent in channels
+* Enumerate guilds that the bot is in
+* Enumerate channels within a specific guild
+* Enumerate guild members **(NOT WORKING FOR NOW)**
+* Read Messages sent in channels
+* Create invite links to channels
 
 
 
@@ -74,3 +75,8 @@ python3 dbe.py messages GUILD_ID CHANNEL_ID BOT_TOKEN
 python3 dbe.py messages -l 50 GUILD_ID CHANNEL_ID BOT_TOKEN
 ``````
 
+To create invite link to a channel:
+
+```
+python3 dbe.py invites GUILD_ID CHANNEL_ID BOT_TOKEN
+```
