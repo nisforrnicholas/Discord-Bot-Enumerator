@@ -17,11 +17,17 @@ Discord Bot Enumerator is a simple Python tool that allows users with a valid Di
 In order to enumerate data using a bot token, the bot itself needs to fulfill certain requirements:
 
 * The token needs to be currently active
+* The minimum permissions that the bot has to have on the guild to execute certain commands is shown below:
 
-* The bot needs to have Administrator Permissions in the guild that it has joined
-* ~~To enumerate members, the bot needs to have the 'SERVER MEMBERS INTENT' Privileged Gateway Intent enabled~~
+|          Command          |                Required Permissions                |
+| :-----------------------: | :------------------------------------------------: |
+|     Enumerate Guilds      |                         -                          |
+|    Enumerate Channels     |                   VIEW_CHANNELS                    |
+|  Enumerate Guild Members  | Privileged Gateway Intent: 'SERVER MEMBERS INTENT' |
+| Enumerate Message History |      VIEW_CHANNELS<br />READ_MESSAGE_HISTORY       |
+|    Create Invite Link     |                CREATE_INSTANT_LINK                 |
 
-
+* The best possible case is for the bot to have '**ADMINISTRATOR**' permissions. This will allow is to execute all of the commands.
 
 # Installation
 
